@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>КТМУ</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+
+    <!-- Sidebar Left Panel -->
+    <th:block th:replace="/fragments/student/sidebar::sidebar_left_panel(${user.getImage()})"></th:block>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 mt-5 pt-5">
+
+                    <div style="height: 250px; display: block">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <strong class="card-title h3">Добро пожаловать!!!</strong>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-dark">
+                                    Добро пожаловать в мир знаний и возможностей! Университет рад приветствовать вас на пороге новых открытий. Готовы вместе с вами погрузиться в увлекательное путешествие обучения, исследований и саморазвития. Давайте сделаем первый шаг к вашей будущей карьере вместе!
+                                </p>
+
+                            </div> <!-- /. card-body -->
+                        </div> <!-- /. card-body -->
+                    </div> <!-- /. col -->
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <p class="card-title"><strong>Сдача Документов</strong></p>
+                                    <p class="card-text">
+                                        Процесс предоставления необходимых документов. Включает список документов, инструкции по сдаче, контактные данные для поддержки, сроки.
+                                    </p>
+                                    <th:block th:if="${user.getDocument() != null && user.getDocument().getStatus() == false}">
+                                        <p class="text-danger">Проверка...</p>
+                                    </th:block>
+                                    <th:block th:if="${user.getDocument() != null && user.getDocument().getStatus() == true}">
+                                        <p class="text-success">Проверено!!!</p>
+                                    </th:block>
+                                    <th:block th:if="${user.getDocument() == null}">
+                                        <a th:href="@{/documents}" id="document" class="btn mb-2 btn-outline-primary">Перейти</a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <p class="card-title"><strong>Письменный Экзамен</strong></p>
+                                    <p class="card-text">
+                                        Тестовая форма оценки знаний. Включает в себя описание предмета, формат экзамена, правила прохождения и дополнительные инструкции.
+                                    </p>
+                                    <!-- Button trigger modal -->
+                                    <th:block th:if="${user.getExam() != null && user.getExam().getStatus() == false}">
+                                        <p class="text-danger">Проверка...</p>
+                                    </th:block>
+                                    <th:block th:if="${user.getExam() != null && user.getExam().getStatus() == true}">
+                                        <p class="text-success">Проверено!!!</p>
+                                    </th:block>
+                                    <th:block th:if="${user.getDocument() != null && user.getDocument().getStatus() == true && user.getExam() == null}">
+                                        <a th:href="@{/exams}" id="exam" class="btn mb-2 btn-outline-primary">Перейти</a>
+                                    </th:block>
+                                    <th:block th:if="${user.getDocument() == null || (user.getDocument() != null && user.getDocument().getStatus() == false)}">
+                                        <a th:href="@{/exams}" class="btn mb-2 btn-outline-primary disabled">Перейти</a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4" th:if="${interview != null && interview.getStatus() == false}">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <p class="card-text">Вам было назначена собеседование...</p>
+                                <a th:href="@{'videocall/' + ${user.getId()} + '?roomID=' + ${user.getInterview().getMeetId()}}" class="btn mb-2 btn-primary"> Присоединиться </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<script>
+
+        let url = 'http://localhost:8000/videocall/' + [[${user.getId()}]] + '?roomID=' + [[${user.getInterview() == null ? null : user.getInterview().getMeetId()}]]
+
+        let button = document.getElementById('interview');
+
+        button.addEventListener('click', function() {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        });
+
+
+    fetch('http://localhost:8000/documents')
+        .then(response => {
+            if (response.status === 403) {
+                let link = document.getElementById('document');
+                link.onclick = function(event) {
+                    event.preventDefault();
+                };
+                link.classList.add('disabled');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при запросе: ', error);
+        });
+
+    fetch('http://localhost:8000/exams')
+        .then(response => {
+            if (response.status === 403) {
+                let link = document.getElementById('exam');
+                link.onclick = function(event) {
+                    event.preventDefault();
+                };
+                link.classList.add('disabled');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при запросе: ', error);
+        });
+</script>
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+</body>
+</html>

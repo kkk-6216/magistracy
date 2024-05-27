@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Sign In</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+
+<div class="wrapper vh-100">
+    <div class="row align-items-center h-100">
+        <form class="col-lg-6 col-md-8 col-10 mx-auto" th:action="@{/sign-up}" th:method="post" th:object="${user}">
+            <div class="mx-auto text-center my-4">
+                <img th:src="@{/assets/images/Manas_logo.png}" alt="" width="150">
+                <h2 class="my-3">Sign Up</h2>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail4">Email</label>
+                <input type="email" th:field="*{email}" class="form-control" id="inputEmail4">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" th:field="*{firstName}" id="firstname" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" th:field="*{lastName}" id="lastname" class="form-control">
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputPassword5">New Password</label>
+                        <input type="password" th:field="*{password}" class="form-control" id="inputPassword5">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword6">Confirm Password</label>
+                        <input type="password" th:field="*{confirmPassword}" class="form-control" id="inputPassword6">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-2">Password requirements</p>
+                    <p class="small text-muted mb-2"> To create a new password, you have to meet all of the following requirements: </p>
+                    <ul class="small text-muted pl-4 mb-0">
+                        <li> Minimum 8 character </li>
+                        <li>At least one special character</li>
+                        <li>At least one number</li>
+                        <li>Can’t be the same as a previous password </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+            <p class="text-center mt-4"><a th:href="@{/sign-in}">Sign In</a></p>
+            <p class="mt-5 mb-3 text-muted text-center">© 2024</p>
+        </form>
+    </div>
+</div>
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+<th:block th:replace="/fragments/script_style::script_secondery"></th:block>
+
+</body>
+</html>
+

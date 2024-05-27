@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Сдача Документов</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+    <!-- Sidebar Left Panel -->
+    <th:block th:replace="/fragments/student/sidebar::sidebar_left_panel(${user.getImage()})"></th:block>
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 mt-5 pt-5">
+
+                    <div class="mb-4" style="height: 250px; display: block">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <strong class="card-title h3">Писменный экзамен</strong>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-dark">
+                                    Ответы на Экзаменационные вопросы должны передаваться в письменном виде от руки, на белом листе. Файл ответа должен быть отсканирован и загружается в PDF формате.
+                                    <br>Экзаменационные вопросы вы можете скачать <a th:href="@{/exam_file/exam_test.pdf}" download>по этой ссылке</a>.
+                                </p>
+
+                            </div> <!-- /. card-body -->
+                        </div> <!-- /. card-body -->
+                    </div>
+
+                    <div class="mb-3 ml-5">
+                        <div class="col-6 mb-5">
+                            <h2 class="page-title">Загрузите Ответы Экзамена</h2>
+                            <p class="lead text-muted">Файлы должны быть в PDF формате, не больше 5MB.</p>
+                            <hr>
+                        </div>
+
+                        <form th:action="@{/exams}" th:method="post" enctype="multipart/form-data" class="form-control-file col-md-6">
+
+                            <div class="mb-4">
+                                <h5>Загрузите Ответы Экзамена</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file" class="custom-file-input file1" id="customFile1" onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file1label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block" style="font-size: 16px;">Загрузить</button>
+
+                        </form>
+
+
+                    </div>
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<script>
+    function validateFileSize(input) {
+        let file = input.files[0];
+        let maxSizeInBytes = 5 * 1024 * 1024;
+        if (file.size > maxSizeInBytes) {
+            alert('File size exceeds 5MB limit');
+            input.value = '';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file1');
+        var fileInputLabel = document.querySelector('.file1label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+
+</script>
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Students</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <th:block th:replace="/fragments/teacher/top_navbar::topnav(${userInfo.getImage()})"></th:block>
+
+    <!-- Sidebar Left Panel -->
+    <th:block th:replace="/fragments/teacher/sidebar_left_panel::sidebar_left_panel"></th:block>
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12">
+
+                    <h2 class="mb-2 page-title">Students Table</h2>
+                    <p class="card-text">The "Students Table" contains all the necessary information that you may need. </p>
+                    <div class="row my-4">
+                        <!-- Small table -->
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <!-- table -->
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"></div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="col ml-auto">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table datatables" id="dataTable-1">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>#</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Exam. grade</th>
+                                            <th>Inter. grade</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody th:if="${!users.isEmpty()}">
+                                        <tr th:each="user : ${users}">
+                                            <td></td>
+                                            <td th:text="${user.getId()}">368</td>
+                                            <td th:text="${user.getFirstName()}">Imani Lara</td>
+                                            <td th:text="${user.getLastName()}">(478) 446-9234</td>
+                                            <td th:text="${user.getEmail()}">Asset Management</td>
+                                            <td th:text="${user.getExam() == null || user.getExam().getGrade() == null ? 'none' : user.getExam().getGrade() }"></td>
+                                            <td th:text="${user.getInterview() == null || user.getInterview().getGrade() == null ? 'none' : user.getInterview().getGrade()}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> <!-- simple table -->
+                    </div> <!-- end section -->
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
+
+<th:block th:replace="/fragments/script_style::script_secondery"></th:block>
+
+
+</body>
+</html>

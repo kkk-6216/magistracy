@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <th:block th:fragment="sidebar_left_panel">
+        <aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+            <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
+                <i class="fe fe-x"><span class="sr-only"></span></i>
+            </a>
+
+            <nav class="vertnav navbar navbar-light">
+
+                <!-- Logo -->
+                <div class="w-100 mb-4 d-flex">
+                    <a class="navbar-brand mx-auto mt-2 flex-fill text-center" th:href="@{/admin}">
+<!--                        <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">-->
+<!--                        <g>-->
+<!--                          <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />-->
+<!--                            <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />-->
+<!--                            <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />-->
+<!--                        </g>-->
+<!--                      </svg>-->
+                        <img th:src="@{/assets/images/Manas_logo.png}" alt="" width="100">
+                    </a>
+                </div>
+
+                <p class="text-muted nav-heading mt-4 mb-1">
+                    <span>Components</span>
+                </p>
+
+                <ul class="navbar-nav flex-fill w-100 mb-2">
+                    <li class="nav-item">
+                        <a th:href="@{/admin/students}" aria-expanded="false" class="nav-link">
+                            <i class="fe fe-box fe-16"></i>
+                            <span class="ml-3 item-text">Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/admin/teachers}" aria-expanded="false" class="nav-link">
+                            <i class="fe fe-box fe-16"></i>
+                            <span class="ml-3 item-text">Teachers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/admin/documents}" aria-expanded="false" class="nav-link">
+                            <i class="fe fe-box fe-16"></i>
+                            <span class="ml-3 item-text">Documents</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/admin/students/approved}" aria-expanded="false" class="nav-link">
+                            <i class="fe fe-box fe-16"></i>
+                            <span class="ml-3 item-text">Accepted</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/admin/rector}" aria-expanded="false" class="nav-link">
+                            <i class="fe fe-box fe-16"></i>
+                            <span class="ml-3 item-text">Rector</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/admin/settings}" aria-expanded="false" class="nav-link">
+                            <i class="fe fe-settings fe-16"></i>
+                            <span class="ml-3 item-text">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <p class="text-muted nav-heading mt-4 mb-1">
+                    <span>Logout</span>
+                </p>
+
+                <ul class="navbar-nav flex-fill w-100 mb-2">
+                    <li class="nav-item">
+                        <form style="width: 100%; display: flex; justify-content: start" th:method="post" th:action="@{/sign-out}">
+                            <button style="width: 100%; display: flex; justify-content: start" class="btn nav-link" type="submit" >
+                                <span class="fe fe-16 fe-log-out"></span>
+                                <span class="ml-3 item-text">Logout</span>
+                            </button>
+                        </form>
+<!--                        <a th:href="@{/admin/users/sign-out}" data-toggle="collapse" aria-expanded="false" class="nav-link">-->
+<!--                            <span class="fe fe-16 fe-log-out"></span>-->
+<!--                            <span class="ml-3 item-text">Logout</span>-->
+<!--                        </a>-->
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+    </th:block>
+</body>
+</html>

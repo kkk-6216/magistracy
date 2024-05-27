@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Administration</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+    <!-- Navigation -->
+<!--    <th:block th:replace="/fragments/admin/top_navbar::topnav(${user.getImage()})"></th:block>-->
+
+    <!-- Sidebar Left Panel -->
+    <th:block th:replace="/fragments/admin/sidebar_left_panel::sidebar_left_panel"></th:block>
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12">
+
+                    <div class="wrapper">
+                        <div class="row align-items-center">
+                            <form class="col-lg-6 col-md-8 col-10 mx-auto" th:action="@{/admin/profile}" th:method="patch" th:object="${user}">
+                                <div class="mx-auto text-center my-4">
+                                    <h2 class="my-3">Profile</h2>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <div class="avatar avatar-xl">
+                                        <img style="width: 150px; height: 150px;" th:if="${user.getImage() == null || user.getImage().isEmpty()}" th:src="@{/assets/avatars/default/profile-circle.svg}" alt="..." class="avatar-img rounded-circle">
+                                        <img style="width: 150px; height: 150px;" th:unless="${user.getImage() == null || user.getImage().isEmpty()}" th:src="@{'/upload_files' + ${user.getImage()}}" alt="..." class="avatar-img rounded-circle">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail4">Email</label>
+                                    <input type="email" th:field="*{email}" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="firstname">Firstname</label>
+                                        <input type="text" th:field="*{firstName}" id="firstname" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lastname">Lastname</label>
+                                        <input type="text" th:field="*{lastName}" id="lastname" class="form-control">
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="wrapper">
+                        <div class="row align-items-center h-100">
+                            <form class="col-lg-6 col-md-8 col-10 mx-auto" enctype="multipart/form-data"  th:action="@{/admin/images}" th:method="post">
+                                <div class="mx-auto text-center my-4">
+                                    <h2 class="my-3">Profile Image</h2>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" name="file" class="custom-file-input file1" id="customFile1" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label file1label" for="customFile1">Выберите файл</label>
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+        <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group list-group-flush my-n3">
+                            <div class="list-group-item bg-transparent">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="fe fe-box fe-24"></span>
+                                    </div>
+                                    <div class="col">
+                                        <small><strong>Package has uploaded successfull</strong></small>
+                                        <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+                                        <small class="badge badge-pill badge-light text-muted">1m ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="fe fe-download fe-24"></span>
+                                    </div>
+                                    <div class="col">
+                                        <small><strong>Widgets are updated successfull</strong></small>
+                                        <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+                                        <small class="badge badge-pill badge-light text-muted">2m ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="fe fe-inbox fe-24"></span>
+                                    </div>
+                                    <div class="col">
+                                        <small><strong>Notifications have been sent</strong></small>
+                                        <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+                                        <small class="badge badge-pill badge-light text-muted">30m ago</small>
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="fe fe-link fe-24"></span>
+                                    </div>
+                                    <div class="col">
+                                        <small><strong>Link was attached to menu</strong></small>
+                                        <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+                                        <small class="badge badge-pill badge-light text-muted">1h ago</small>
+                                    </div>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div> <!-- / .list-group -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+                    </div>
+
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file1');
+        var fileInputLabel = document.querySelector('.file1label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+</script>
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
+
+<th:block th:replace="/fragments/script_style::script_secondery"></th:block>
+
+
+
+</body>
+</html>

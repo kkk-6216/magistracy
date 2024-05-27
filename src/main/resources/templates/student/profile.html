@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>КТМУ</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+
+    <!-- Sidebar Left Panel -->
+    <th:block th:replace="/fragments/student/sidebar::sidebar_left_panel(${user.getImage()})"></th:block>
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 ">
+
+                    <div class="wrapper mb-5">
+                        <div class="row align-items-center h-100">
+                            <form class="col-lg-6 col-md-8 col-10 mx-auto" th:action="@{/students/{id}(id=${user.getId()})}" th:method="patch" th:object="${user}">
+                                <div class="mx-auto text-center my-4">
+                                    <h2 class="my-3">Profile</h2>
+                                </div>
+                                <div class="text-center mb-5">
+                                    <div class="avatar avatar-xl">
+                                        <img style="width: 150px; height: 150px;" th:if="${user.getImage() == null || user.getImage().isEmpty()}" th:src="@{/assets/avatars/default/profile-circle.svg}" alt="..." class="avatar-img rounded-circle">
+                                        <img style="width: 150px; height: 150px;" th:unless="${user.getImage() == null || user.getImage().isEmpty()}" th:src="@{'/upload_files' + ${user.getImage()}}" alt="..." class="avatar-img rounded-circle">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail4">Email</label>
+                                    <input type="email" disabled th:field="*{email}" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="firstname">Firstname</label>
+                                        <input type="text" th:field="*{firstName}" id="firstname" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lastname">Lastname</label>
+                                        <input type="text" th:field="*{lastName}" id="lastname" class="form-control">
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputPassword5">Exam Grade</label>
+                                            <input type="number" disabled th:field="*{exam.grade}" class="form-control" id="inputPassword5">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputPassword6">Interview Grade</label>
+                                            <input type="number" disabled th:field="*{interview.grade}" class="form-control" id="inputPassword6">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="wrapper">
+                        <div class="row align-items-center h-100">
+                            <form class="col-lg-6 col-md-8 col-10 mx-auto" enctype="multipart/form-data"  th:action="@{/images}" th:method="post">
+                                <div class="mx-auto text-center my-4">
+                                    <h2 class="my-3">Profile Image</h2>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" name="file" class="custom-file-input file1" id="customFile1" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label file1label" for="customFile1">Выберите файл</label>
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file1');
+        var fileInputLabel = document.querySelector('.file1label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Сдача Документов</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+    <!-- Sidebar Left Panel -->
+        <th:block th:replace="/fragments/student/sidebar::sidebar_left_panel(${user.getImage()})"></th:block>
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 mt-2">
+                    <div class="mb-3 ml-5">
+                        <div class="col-6 mb-2">
+                            <h2 class="page-title">Загрузите Ваши Документы</h2>
+                            <p class="lead text-muted">Файлы должны быть в PDF формате, не больше 5MB.</p>
+                            <hr>
+                        </div>
+
+                        <form th:action="@{/documents}" th:method="post" enctype="multipart/form-data" class="form-control-file col-md-6">
+
+                            <div class="mb-4">
+                                <h5>Заявление на поступление</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file1" class="custom-file-input file1" id="customFile1" onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file1label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>Диплом</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file2" class="custom-file-input file2" id="customFile2" onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file2label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>Транскрипт</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file3" class="custom-file-input file3" id="customFile3" onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file3label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>Рекомендательное письмо</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file4" class="custom-file-input file4" id="customFile4" onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file4label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>Резюме</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file5" class="custom-file-input file5" id="customFile5"  onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file5label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>Портфолио</h5>
+
+                                <div class="form-group mb-3 ">
+                                    <div class="custom-file">
+                                        <input type="file" name="file6" class="custom-file-input file6" id="customFile6" onchange="validateFileSize(this)" accept="application/pdf">
+                                        <label class="custom-file-label file6label" for="customFile1">Выберите файл</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block" style="font-size: 16px;">Загрузить</button>
+
+                        </form>
+
+                    </div>
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<script>
+
+    function validateFileSize(input) {
+        let file = input.files[0];
+        let maxSizeInBytes = 5 * 1024 * 1024;
+        if (file.size > maxSizeInBytes) {
+            alert('File size exceeds 5MB limit');
+            input.value = '';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file1');
+        var fileInputLabel = document.querySelector('.file1label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file2');
+        var fileInputLabel = document.querySelector('.file2label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file3');
+        var fileInputLabel = document.querySelector('.file3label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file4');
+        var fileInputLabel = document.querySelector('.file4label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file5');
+        var fileInputLabel = document.querySelector('.file5label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var fileInput = document.querySelector('.file6');
+        var fileInputLabel = document.querySelector('.file6label');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop();
+            fileInputLabel.textContent = fileName || 'Выберите файл';
+        });
+    });
+</script>
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+</body>
+</html>

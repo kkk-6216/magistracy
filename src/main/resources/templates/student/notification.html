@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>КТМУ</title>
+
+    <th:block th:replace="/fragments/script_style::main_style"></th:block>
+
+</head>
+<body class="vertical  light  ">
+<div class="wrapper">
+
+    <!-- Sidebar Left Panel -->
+    <th:block th:replace="/fragments/student/sidebar::sidebar_left_panel(${user.getImage()})"></th:block>
+
+    <!-- Main Window -->
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 mt-5 pt-5">
+
+                    <h2 class="page-title">Уведомления</h2>
+
+                    <div>
+                        <div class="alert alert-success" role="alert">
+                            <span class="fe fe-help-circle fe-16 mr-2"></span> Поздравляем с успешной регистрацией на нашем сайте! Добро пожаловать в сообщество амбициозных студентов, стремящихся к получению магистерской степени.
+
+                            <div class="mt-2">
+                                <span class="font-weight-bolder">Внимательно ознакомьтесь с этапами отбора:</span>
+                            </div>
+                            <div class="mt-3">
+                                <span class="font-weight-bolder">Этап 1: Подача документов</span>
+
+                                <div class="mt-2">
+                                    Подача документов: В первую очередь необходимо предоставить все необходимые документы для рассмотрения вашей заявки. Убедитесь, что все документы предоставлены в соответствии с требованиями университета.
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <span class="font-weight-bolder">Этап 2: Рассмотрение заявки и экзамен</span>
+
+                                <div class="mt-2">
+                                    Рассмотрение заявки: После получения документов ваша заявка будет рассмотрена. Мы тщательно оценим вашу квалификацию и соответствие требованиям программы.
+                                    Проведение экзамена: После одобрения вашей заявки вы будете приглашены на экзамен по выбранной специальности. Этот этап позволит нам оценить вашу академическую подготовку и профессиональные навыки.
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <span class="font-weight-bolder">Этап 3: Собеседование</span>
+
+                                <div class="mt-2">
+                                    Проведение собеседования: После успешного прохождения экзамена с нашей стороны будет проведено собеседование с кандидатами, которые прошли экзамен на магистерскую программу. Это позволит нам лучше понять ваши цели и мотивацию, а также убедиться в вашей готовности к обучению на программе.
+                                </div>
+                            </div>
+
+                            <div class="mt-3 font-weight-bolder">
+                                Желаем вам успехов на каждом этапе и надеемся приветствовать вас в числе студентов нашего университета!
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <div th:if="${notification.getDocument() == null}" class="alert alert-warning" role="alert">
+                            <span class="fe fe-alert-triangle fe-16 mr-2"></span> Вам предстоит подать документы!!!
+                        </div>
+                        <div th:if="${notification.getDocument() == true}" class="alert alert-success" role="alert">
+                            <span class="fe fe-help-circle fe-16 mr-2"></span> Вы успешно сдали документы!!!
+                        </div>
+                        <div th:if="${notification.getDocument() == false}" class="alert alert-danger" role="alert">
+                            <span class="fe fe-minus-circle fe-16 mr-2"></span> Идет проверка документов, ждите одобрение...
+                        </div>
+                    </div>
+
+                    <div th:if="${notification.getDocument() == true}">
+                        <div th:if="${notification.getExam() == null}" class="alert alert-warning" role="alert">
+                            <span class="fe fe-alert-triangle fe-16 mr-2"></span> Вам предстоит сдать экзамен!!!
+                        </div>
+                        <div th:if="${notification.getExam() == true}" class="alert alert-success" role="alert">
+                            <span class="fe fe-help-circle fe-16 mr-2"></span>Результаты экзамена |  Ваш балл: [[${notification.getGradeExam()}]]
+                        </div>
+                        <div th:if="${notification.getExam() == false}" class="alert alert-danger" role="alert">
+                            <span class="fe fe-minus-circle fe-16 mr-2"></span> Идет проверка, ждите результаты...
+                        </div>
+                    </div>
+
+                    <div th:if="${notification.getExam() != null && notification.getGradeExam() != null}">
+                        <div  th:if="${notification.getInterview() == null || notification.getInterview() == false}" class="alert alert-warning" role="alert">
+                            <span class="fe fe-alert-triangle fe-16 mr-2"></span> Ожидание... те кто прошел отбор, войдет в собеседования!!!
+                        </div>
+                        <div th:if="${notification.getInterview() == true}" class="alert alert-success" role="alert">
+                            <span class="fe fe-help-circle fe-16 mr-2"></span>Результаты интервью |  Ваш балл: [[${notification.getGradeInterview()}]]
+                        </div>
+                    </div>
+
+                    <div th:if="${user.getApproved()}" class="alert alert-success" role="alert">
+                        <span class="fe fe-help-circle fe-16 mr-2"></span><pre>
+                        Дорогой [[${user.getEmail()}]],
+
+Поздравляем тебя с твоим великолепным достижением – прохождением в университет!
+Это замечательный шаг в твоей учебной карьере и результат твоих усилий, настойчивости и умения преодолевать трудности.
+
+Мы гордимся тобой и уверены, что ты продолжишь демонстрировать выдающиеся результаты в своих учебных занятиях,
+исследованиях и экстра-курсовой деятельности. Ты вдохновляешь нас своим стремлением к знаниям и желанием развиваться.
+
+Желаем тебе успехов в учебе, новых открытий и ярких впечатлений в этом увлекательном путешествии знаний и саморазвития!
+
+С наилучшими пожеланиями,
+Университет Кыргыз-Турк Манас
+
+                    </pre>
+                    </div>
+
+
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+
+    </main> <!-- main -->
+
+</div> <!-- .wrapper -->
+
+<th:block th:replace="/fragments/script_style::main_script"></th:block>
+
+</body>
+</html>
